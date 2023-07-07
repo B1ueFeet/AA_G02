@@ -28,9 +28,9 @@ salida <- "Salidas/poblacion.csv"
 
 #Variable a consideracion
 variables <- c("prov_insc","cant_insc","parr_insc","nac_fall",
-              "sexo","fecha_nac", "fecha_fall", "edad",
-              "etnia", "lugar_ocur", "mor_viol", "autopsia",
-              "causa")
+               "sexo","fecha_nac", "fecha_fall", "edad",
+               "etnia", "lugar_ocur", "mor_viol", "autopsia",
+               "causa")
 
 
 
