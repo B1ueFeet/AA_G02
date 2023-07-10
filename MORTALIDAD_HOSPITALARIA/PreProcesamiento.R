@@ -18,7 +18,7 @@ provincia <- 'Guayas'
 salida <- "Salidas/poblacion.csv"
 #Variable a consideracion
 variables <- c("prov_insc","cant_insc","parr_insc","nac_fall",
-               "sexo","fecha_nac", "fecha_fall", "edad",
+               "sexo", "fecha_fall", "edad",
                "etnia", "lugar_ocur", "mor_viol", "autopsia",
                "causa")
 spss <- read.csv2(spssPoblacion, header = TRUE, sep = ";")
@@ -47,7 +47,7 @@ setwd(file.path(ruta_dir,"/DATASET/Salidas"))
 csvFileName <- "poblacion.csv"
 poblacion <- read.csv2(csvFileName, header = TRUE, sep = ";")
 variables <- c("prov_insc","cant_insc","parr_insc","nac_fall",
-               "sexo","fecha_nac", "fecha_fall", "edad",
+               "sexo", "fecha_fall", "edad",
                "etnia", "lugar_ocur", "mor_viol", "autopsia",
                "causa")
 dataset <- poblacion[,variables]
