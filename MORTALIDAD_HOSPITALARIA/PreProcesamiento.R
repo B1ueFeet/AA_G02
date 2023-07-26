@@ -19,7 +19,8 @@ salida <- "Salidas/poblacion.csv"
 #Variable a consideracion
 variables <- c("prov_insc","cant_insc","parr_insc","nac_fall",
                "sexo", "fecha_fall", "edad",
-               "etnia", "lugar_ocur", "mor_viol", "autopsia",
+               "etnia", "lugar_ocur","prov_fall","cant_fall","parr_fall","area_fall" ,
+               "mor_viol", "autopsia",
                "causa")
 spss <- read.csv2(spssPoblacion, header = TRUE, sep = ";")
 names(spss) <- tolower(names(spss))
@@ -27,6 +28,15 @@ names(spss) <- tolower(names(spss))
 #Filtrado - sbudataset
 spss_poblacion <- spss[spss$prov_insc == provincia, variables]
 write.csv2(spss_poblacion, salida, row.names = FALSE)
+
+#------------------------------ANALISIS DE CORRELACCION-----------------------------------
+
+tabla_contingencia <- table(spss$anio_insc, spss$causa)
+install.packages("vcd")
+library(vcd)
+coef_contingencia <- assocstats(tabla_contingencia)
+
+
 
 #****************************** MANEJO DE VALORES AUSENTES ****************************
 install.packages("caTools")
@@ -37,20 +47,15 @@ library(caTools)
 library(foreing)
 library(miscFuns)
 
-rm(list = ls())
 
-editor <- rstudioapi::getSourceEditorContext()
-ruta_dir <- dirname(editor$path)
-print(ruta_dir)
+
 #Cargas de datos al directorio
 setwd(file.path(ruta_dir,"/DATASET/Salidas"))
 csvFileName <- "poblacion.csv"
 poblacion <- read.csv2(csvFileName, header = TRUE, sep = ";")
-variables <- c("prov_insc","cant_insc","parr_insc","nac_fall",
-               "sexo", "fecha_fall", "edad",
-               "etnia", "lugar_ocur", "mor_viol", "autopsia",
-               "causa")
 dataset <- poblacion[,variables]
+
+#------------------------MANEJO VALORES AUSENTES-----------------------
 #valores ausentes
 colSums(is.na(dataset))
 
