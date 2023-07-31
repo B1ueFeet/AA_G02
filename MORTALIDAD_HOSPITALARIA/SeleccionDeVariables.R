@@ -5,6 +5,9 @@ install.packages("caret")
 install.packages("randomForest")
 install.packages("Hmisc")
 install.packages("stringi")
+install.packages("dplyr")
+install.packages("modeest")
+install.packages("moments")
 
 #----------------------------------PREPARACION---------------------------
 rm(list = ls())
@@ -30,22 +33,12 @@ set.seed(111)
 library(Hmisc)
 #-------------------ANALISIS DE DATOS--------------------------------
 #analizar la varianza primeroluego distribucion y luego hacer la imputacion de datos analizar la varianza de nuevo
-boxplot(spss)
+library(dplyr)
+library(modeest) 
+library(moments)
+summary(spss)
 
-#------------------ IMPUTACION DE DATOS --------------------------------
-spss$anio_insc <- impute(spss$anio_insc, mean)
-spss$dia_insc <- impute(spss$dia_insc, mean)
-spss$edad <- impute(spss$edad, mode)
-spss$cod_edad <- impute(spss$cod_edad, mode)
-spss$etnia <- impute(spss$etnia, mode)
-spss$est_civil <- impute(spss$est_civil, mode)
-spss$niv_inst <- impute(spss$niv_inst, mode)
-spss$sabe_leer <- impute(spss$sabe_leer, mode)
-spss$autopsia <- impute(spss$autopsia, mode)
-spss$lugar_ocur <- impute(spss$lugar_ocur, mode)
-spss$lug_viol <- impute(spss$lug_viol, mode)
-spss$nac_fall <- impute(spss$nac_fall, mode)
-spss$causa <- as.factor(spss$causa)
+
 
 #----------------------ENTRENAMIENTO
 boruta <- Boruta(causa ~ ., data = spss, doTrace = 2, maxRuns = 500)
