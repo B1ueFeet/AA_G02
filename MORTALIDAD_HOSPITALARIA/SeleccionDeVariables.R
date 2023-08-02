@@ -19,7 +19,7 @@ print(ruta_dir)
 #Cargas de datos al directorio
 setwd(file.path(ruta_dir,"/DATASET"))
 #Crear una variable
-spssPoblacion <- "inec_defuncionesgenerales_2020.csv"
+spssPoblacion <- "bd-imputados.csv"
 provincia <- 'Guayas'
 spss <- read.csv2(spssPoblacion, header = TRUE, sep = ";")
 names(spss) <- tolower(names(spss))
@@ -31,15 +31,9 @@ library(randomForest)
 set.seed(111)
 
 library(Hmisc)
-#-------------------ANALISIS DE DATOS--------------------------------
-#analizar la varianza primeroluego distribucion y luego hacer la imputacion de datos analizar la varianza de nuevo
-library(dplyr)
-library(modeest) 
-library(moments)
-summary(spss)
-
-
+colSums(is.na(spss))
 
 #----------------------ENTRENAMIENTO
+spss$causa <- factor(spss$causa)
 boruta <- Boruta(causa ~ ., data = spss, doTrace = 2, maxRuns = 500)
 print(boruta)

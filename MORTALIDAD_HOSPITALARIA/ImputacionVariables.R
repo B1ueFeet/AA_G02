@@ -72,28 +72,51 @@ colSums(is.na(imputados))
 #------------------------revision de medidas de variabilidad--------------
 #anio_insc
 verificacion(spss$anio_insc, imputados$anio_insc, T, mean)
-verificacion(spss$anio_insc, imputados$anio_insc, T, median)
-verificacion(spss$anio_insc, imputados$anio_insc, T, mode)
 
 #dia_insc
+
+verificacion(spss$dia_insc, imputados$dia_insc, T, mean)
+
 #edad
+
+verificacion(spss$edad, imputados$edad, T, mean)
+
 #cod_edad
+
+verificacion(spss$cod_edad, imputados$cod_edad, T, mode)
+
 #nac_fall
-#etnia   
+
+verificacion(spss$nac_fall, imputados$nac_fall, T, mode)
+#etnia 
+
+verificacion(spss$etnia, imputados$etnia, T, mode)
 #est_civil
+
+verificacion(spss$est_civil, imputados$est_civil, T, mode)
 #niv_inst
+
+verificacion(spss$niv_inst, imputados$niv_inst, T, mode)
 #sabe_leer
+
+verificacion(spss$sabe_leer, imputados$sabe_leer, T, mode)
 #autopsia
+
+verificacion(spss$autopsia, imputados$autopsia, T, mode)
 #lugar_ocur
+
+verificacion(spss$lugar_ocur, imputados$lugar_ocur, T, mode)
 #lug_viol
+
+verificacion(spss$lug_viol, imputados$lug_viol, T, mode)
 
 
 
 #------------------ IMPUTACION DE DATOS --------------------------------
 imputados$anio_insc <- impute(spss$anio_insc, mean)
-imputados$dia_insc <- impute(spss$dia_insc, mean)   # tomamos la media
+imputados$dia_insc <- impute(spss$dia_insc, mean)   # tomamos la medida
 imputados$edad <- impute(spss$edad, mean)
-imputados$cod_edad <- impute(spss$cod_edad, mean)
+imputados$cod_edad <- impute(spss$cod_edad, mode)
 imputados$etnia <- impute(spss$etnia, mode)
 imputados$est_civil <- impute(spss$est_civil, mode)
 imputados$niv_inst <- impute(spss$niv_inst, mode)
@@ -104,6 +127,11 @@ imputados$lug_viol <- impute(spss$lug_viol, mode)
 imputados$nac_fall <- impute(spss$nac_fall, mode)
 
 colSums(is.na(imputados))
+
+#------------------- GUARDAR LOS DATOS IMPUTADOS ----------------
+
+write.csv2(imputados, file = "bd-imputados.csv", row.names = FALSE)
+
 
 
 
