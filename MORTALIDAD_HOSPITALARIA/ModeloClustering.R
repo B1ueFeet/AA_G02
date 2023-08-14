@@ -13,34 +13,20 @@ editor <- rstudioapi::getSourceEditorContext()
 ruta_dir <- dirname(editor$path)
 print(ruta_dir)
 #Cargas de datos al directorio
-setwd(file.path(ruta_dir,"/DATASET/Salidas"))
+setwd(file.path(ruta_dir,"/DATASET"))
+setwd(file.path(ruta_dir,"/DATASET/salidas"))
 
 dataset_total <- read.csv2(file="mortalidad-hospitalaria-gye.csv")
 datset_original <- dataset_total
 colSums(is.na(dataset_total))
-variables <- c("prov_insc","cant_insc","parr_insc","nac_fall",
-               "sexo", "fecha_fall", "edad", "etnia", "lugar_ocur",
-               "prov_fall","cant_fall","parr_fall","area_fall" ,
-               "mor_viol", "autopsia", "causa")
+variables <- "variables_seleccionadas.csv"
+var <- read.csv2(file=variables)
 
-dataset_total$prov_insc<-factor(dataset_total$prov_insc)
-dataset_total$cant_insc<-factor(dataset_total$cant_insc)
-dataset_total$parr_insc<-factor(dataset_total$parr_insc)
-dataset_total$nac_fall<-factor(dataset_total$nac_fall)
-dataset_total$sexo<-factor(dataset_total$sexo)
-dataset_total$fecha_fall<-factor(dataset_total$fecha_fall)
-dataset_total$edad<-factor(dataset_total$edad)
-dataset_total$etnia<-factor(dataset_total$etnia)
-dataset_total$lugar_ocur<-factor(dataset_total$lugar_ocur)
-dataset_total$nac_fall<-factor(dataset_total$prov_fall)
-dataset_total$nac_fall<-factor(dataset_total$cant_fall)
-dataset_total$nac_fall<-factor(dataset_total$parr_fall)
-dataset_total$nac_fall<-factor(dataset_total$area_fall)
-dataset_total$causa<-factor(dataset_total$causa)
 
-variables <- c(2:14)
+dataset <- lapply(dataset, as.factor)
 
-dataset<- dataset_total[,variables] # carga del data set solo con las variables
+
+dataset<- dataset_total # carga del data set solo con las variables
 
 dataset <- dummy(dataset)
 

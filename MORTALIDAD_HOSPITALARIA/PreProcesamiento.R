@@ -17,16 +17,17 @@ provincia <- 'Guayas'
 #crear un directorio de salidas
 salida <- "Salidas/poblacion.csv"
 #Variable a consideracion
-variables <- c("prov_insc","cant_insc","parr_insc","nac_fall",
-               "sexo", "fecha_fall", "edad",
-               "etnia", "lugar_ocur","prov_fall","cant_fall","parr_fall","area_fall" ,
-               "mor_viol", "autopsia",
-               "causa")
+variables <- "variables_seleccionadas.csv"
 spss <- read.csv2(spssPoblacion, header = TRUE, sep = ";")
 names(spss) <- tolower(names(spss))
 
+var <- read.csv2(variables, header = TRUE, sep = ";")
+
+var$x[26] <- "causa"
+
+
 #Filtrado - sbudataset
-spss_poblacion <- spss[spss$prov_insc == provincia, variables]
+spss_poblacion <- spss[spss$prov_fall == provincia, unlist(var)]
 write.csv2(spss_poblacion, salida, row.names = FALSE)
 
 
@@ -38,7 +39,7 @@ install.packages("miscFuncs")
 
 library(caTools)
 library(foreing)
-library(miscFuns)
+library(miscFuncs)
 
 
 
@@ -46,15 +47,22 @@ library(miscFuns)
 setwd(file.path(ruta_dir,"/DATASET/Salidas"))
 csvFileName <- "poblacion.csv"
 poblacion <- read.csv2(csvFileName, header = TRUE, sep = ";")
-dataset <- poblacion[,variables]
+dataset <- poblacion[,unlist(var)]
 
 #------------------------MANEJO VALORES AUSENTES-----------------------
 #valores ausentes
 colSums(is.na(dataset))
 
+library(naniar)
+library(visdat)
+library(tidyverse)
+library(simputation)
+
+dataset <-replace_with_na_all(dataset, ~.x %in% c("N/A", "missing", "na", " "))
+
 #eliminar valores ausentes
 dataset$autopsia <- NULL
-dataset$mor_viol <- NULL
+
 row.has.na <- apply(dataset, 1, function(x){
   any(is.na(x))
 })
