@@ -87,7 +87,7 @@ spss$prov_res <- factor(spss$prov_res)
 spss$area_res <- factor(spss$prov_res)
 
 spss$causa <- factor(spss$causa)
-spss$residente <- factor(spss$residente)
+spss$residente <- factor(spss$residente) 
 
 spss$mor_viol <- NULL
 spss$cod_edad <- NULL
@@ -100,10 +100,20 @@ spss$mor_viol <- NULL
 spss$lug_viol <- NULL
 spss$cer_por <- NULL
 spss$numeración <- NULL
-
+spss$causa..v <- NULL
 str(spss)
 
 
 
-boruta <- Boruta(causa ~ ., data = spss, doTrace = 2, maxRuns = 15)
+boruta <- Boruta(causa ~ ., data = spss, doTrace = 1, maxRuns = 15)
 print(boruta)
+
+bor <- TentativeRoughFix(boruta)
+print(bor)
+
+# Obtener las variables seleccionadas
+variables_seleccionadas <- names(bor$finalDecision[bor$finalDecision == "Confirmed"])
+
+variables_seleccionadas
+# Guardar las variables seleccionadas en una variable
+write.csv(variables_seleccionadas, file = "variables_seleccionadas.csv", row.names = FALSE)
