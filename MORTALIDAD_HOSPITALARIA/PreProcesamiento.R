@@ -62,6 +62,13 @@ dataset <-replace_with_na_all(dataset, ~.x %in% c("N/A", "missing", "na", " "))
 
 #eliminar valores ausentes
 dataset$autopsia <- NULL
+dataset$dia_insc <- NULL
+dataset$fecha_insc <-NULL
+dataset$dia_fall <- NULL
+dataset$fecha_fall <- NULL
+dataset$dia_nac <- NULL
+dataset$fecha_nac <- NULL
+
 
 row.has.na <- apply(dataset, 1, function(x){
   any(is.na(x))

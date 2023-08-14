@@ -14,19 +14,17 @@ ruta_dir <- dirname(editor$path)
 print(ruta_dir)
 #Cargas de datos al directorio
 setwd(file.path(ruta_dir,"/DATASET"))
-setwd(file.path(ruta_dir,"/DATASET/salidas"))
-
-dataset_total <- read.csv2(file="mortalidad-hospitalaria-gye.csv")
-datset_original <- dataset_total
-colSums(is.na(dataset_total))
 variables <- "variables_seleccionadas.csv"
 var <- read.csv2(file=variables)
 
 
-dataset <- lapply(dataset, as.factor)
+setwd(file.path(ruta_dir,"/DATASET/salidas"))
+dataset_total <- read.csv2(file="mortalidad-hospitalaria-gye.csv")
+datset_original <- dataset_total
+colSums(is.na(dataset_total))
 
 
-dataset<- dataset_total # carga del data set solo con las variables
+dataset<- dataset_total 
 
 dataset <- dummy(dataset)
 
@@ -116,7 +114,7 @@ plot(1:15, wss, type="b",
 #PROBAR ENB LOS DOS CODOS PARA VER O LANZAR EN BRECHASS
 #SELECCION DE VARIABLES CON REGRESION LINEAL METODO DE ELIMINACION PARA ATRAS
 
-num_cluster <- 8
+num_cluster <- 10
 som_cluster <-
   cutree(hclust(dist(getCodes(som_model))),
          num_cluster)
@@ -158,4 +156,23 @@ ggplot(conteo_frame,aes(x=as.factor(var1), y=as.factor(Freq))+
 
 
 cluster1 <- cluster_details[cluster_details$cluster==1,]
+cluster2 <- cluster_details[cluster_details$cluster==2,]
+cluster3 <- cluster_details[cluster_details$cluster==3,]
+cluster4 <- cluster_details[cluster_details$cluster==4,]
+cluster5 <- cluster_details[cluster_details$cluster==5,]
+cluster6 <- cluster_details[cluster_details$cluster==6,]
+cluster7 <- cluster_details[cluster_details$cluster==7,]
+cluster8 <- cluster_details[cluster_details$cluster==8,]
+cluster9 <- cluster_details[cluster_details$cluster==9,]
+cluster10 <- cluster_details[cluster_details$cluster==10,]
+
 write.csv2(cluster1,"cluster1.csv")
+write.csv2(cluster2,"cluster2.csv")
+write.csv2(cluster3,"cluster3.csv")
+write.csv2(cluster4,"cluster4.csv")
+write.csv2(cluster5,"cluster5.csv")
+write.csv2(cluster6,"cluster6.csv")
+write.csv2(cluster7,"cluster7.csv")
+write.csv2(cluster8,"cluster8.csv")
+write.csv2(cluster9,"cluster9.csv")
+write.csv2(cluster10,"cluster10.csv")
