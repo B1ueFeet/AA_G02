@@ -29,13 +29,6 @@ names(spss) <- tolower(names(spss))
 spss_poblacion <- spss[spss$prov_insc == provincia, variables]
 write.csv2(spss_poblacion, salida, row.names = FALSE)
 
-#------------------------------ANALISIS DE CORRELACCION-----------------------------------
-
-tabla_contingencia <- table(spss$anio_insc, spss$causa)
-install.packages("vcd")
-library(vcd)
-coef_contingencia <- assocstats(tabla_contingencia)
-
 
 
 #****************************** MANEJO DE VALORES AUSENTES ****************************
