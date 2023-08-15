@@ -114,7 +114,7 @@ verificacion(spss$lug_viol, imputados$lug_viol, T, mode)
 
 #------------------ IMPUTACION DE DATOS --------------------------------
 imputados$anio_insc <- impute(spss$anio_insc, mean)
-imputados$dia_insc <- impute(spss$dia_insc, mean)   # tomamos la medida
+imputados$dia_insc <- impute(spss$dia_insc, mean)   
 imputados$edad <- impute(spss$edad, mean)
 imputados$cod_edad <- impute(spss$cod_edad, mode)
 imputados$etnia <- impute(spss$etnia, mode)
